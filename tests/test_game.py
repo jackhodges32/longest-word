@@ -64,7 +64,7 @@ class TestGame:
         # setup
         new_game = Game()
         test_grid = 'KWEUEAKRZ'
-        test_word = 'KWAKE'
+        test_word = 'WEAK'
         # exercise
         new_game.grid = list(test_grid) # Force the grid to a test case
         # verify
