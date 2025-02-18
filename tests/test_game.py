@@ -1,6 +1,7 @@
 from longest_word.game import Game
 import string
 
+
 class TestGame:
     def test_game_initialization(self):
 
@@ -16,24 +17,67 @@ class TestGame:
         for letter in grid:
             assert letter in string.ascii_uppercase
 
-        # Teardown
-
-    def valid_input(self, word):
-        new_game = Game()
 
     def test_empty_word_is_invalid(self):
         # setup
         new_game = Game()
-        # verify
+        # check is not an empty string
         assert new_game.is_valid('') is False
 
+    def test_is_valid(self):
+        # setup
+        new_game = Game()
+        test_grid = 'KWEUEAKRZ'
+        test_word = 'EUREKA'
+        # exercise
+        new_game.grid = list(test_grid) # Force the grid to a test case
+        # verify
+        assert new_game.is_valid(test_word) is True
+        # teardown
+        assert new_game.grid == list(test_grid) # Make sure the grid remained untouched
+
+    def test_is_invalid(self):
+        # setup
+        new_game = Game()
+        test_grid = 'KWEUEAKRZ'
+        test_word = 'SANDWICH'
+        # exercise
+        new_game.grid = list(test_grid) # Force the grid to a test case
+        # verify
+        assert new_game.is_valid(test_word) is False
+        # teardown
+        assert new_game.grid == list(test_grid) # Make sure the grid remained untouched
 
 
-#        # Checks is a string, using isinstance to verify data type
-  #      assert isinstance(word, str)
- #       # Checks there is at least one characters input
-   #     assert len(word) > 0
-        # Checks each character in a letter is a string and uppercase
-    #    for letter in word:
-     #       assert letter.isalpha()
-      #      assert letter.isupper()
+    def test_is_invalid_if_alternate_character(self):
+        # setup
+        new_game = Game()
+        test_grid = 'KWEUEAKRZ'
+        test_word = 'S2NDWICH'
+        # exercise
+        new_game.grid = list(test_grid) # Force the grid to a test case
+        # verify
+        assert new_game.is_valid(test_word) is False
+
+
+    def test_is_valid_if_no_alternate_character(self):
+        # setup
+        new_game = Game()
+        test_grid = 'KWEUEAKRZ'
+        test_word = 'KWAKE'
+        # exercise
+        new_game.grid = list(test_grid) # Force the grid to a test case
+        # verify
+        assert new_game.is_valid(test_word) is True
+
+
+    def test_is_invalid_if_excess_characters(self):
+        # setup (example has 2 'G' - Input has 3 'G')
+        new_game = Game()
+        test_grid = 'AOGREEATGSA'
+        test_word = 'AGGREGATE'
+        # exercise
+        new_game.grid = list(test_grid) # Force the grid to a test case
+        # verify
+        assert new_game.is_valid(test_word) is False
+
